@@ -1,5 +1,5 @@
 import express, { NextFunction, Request, Response } from 'express';
-import { createUser } from './user.controller';
+import { createUser, lognUser } from './user.controller';
 const router = express.Router();
 
 router.get('/', (req:Request, res:Response, next: NextFunction)=> {
@@ -7,6 +7,7 @@ router.get('/', (req:Request, res:Response, next: NextFunction)=> {
     next();
 })
 
-router.get('/create-user', createUser)
+router.post('/create-user', createUser)
+router.post('/login-user', lognUser)
 
 export default router; 
