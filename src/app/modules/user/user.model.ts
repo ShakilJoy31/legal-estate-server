@@ -27,6 +27,10 @@ const userSchema = new Schema<IUser>({
         type: String,
         required: true
     },
+    photo: {
+        type: String,
+        required: true
+    }
 });
 
 userSchema.set('autoIndex', true);

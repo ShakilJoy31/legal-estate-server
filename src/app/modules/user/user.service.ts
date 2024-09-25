@@ -14,7 +14,7 @@ export const createUserToDB = async (data: IUser) => {
 
 
 
-export const getUserForLogin = async (data: IUser) => {
+export const getUserForLogin = async (data: IUser) => { 
   const { email, password } = data;
 
   try {

@@ -27,6 +27,10 @@ const userSchema = new mongoose_1.Schema({
         type: String,
         required: true
     },
+    photo: {
+        type: String,
+        required: true
+    }
 });
 userSchema.set('autoIndex', true);
 const User = (0, mongoose_1.model)("Users", userSchema);
