@@ -12,12 +12,30 @@ export const createUserPropertyToDB = async (data: IProperty) => {
 }
 
 
-
 export const getUserPropertyFromDB = async () => {
     try {
-        const user = await Property.find();
-        return user;
+        const properties = await Property.find()
+            .populate({
+                path: 'propertyOwner', 
+                select: 'name email phone address photo' 
+            })
+            .exec();
+        return properties;
     } catch (error) {
-        return error; 
+        console.error('Error fetching properties:', error);
+        return error;
     }
-}
+};
+
+
+
+
+// export const getUserPropertyFromDB = async () => {
+//     try {
+//         const properties = await Property.find();
+//         console.log(properties)
+//         return properties;
+//     } catch (error) {
+//         return error; 
+//     }
+// }

@@ -26,11 +26,26 @@ const createUserPropertyToDB = (data) => __awaiter(void 0, void 0, void 0, funct
 exports.createUserPropertyToDB = createUserPropertyToDB;
 const getUserPropertyFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const user = yield property_model_1.default.find();
-        return user;
+        const properties = yield property_model_1.default.find()
+            .populate({
+            path: 'propertyOwner',
+            select: 'name email phone address photo'
+        })
+            .exec();
+        return properties;
     }
     catch (error) {
+        console.error('Error fetching properties:', error);
         return error;
     }
 });
 exports.getUserPropertyFromDB = getUserPropertyFromDB;
+// export const getUserPropertyFromDB = async () => {
+//     try {
+//         const properties = await Property.find();
+//         console.log(properties)
+//         return properties;
+//     } catch (error) {
+//         return error; 
+//     }
+// }
