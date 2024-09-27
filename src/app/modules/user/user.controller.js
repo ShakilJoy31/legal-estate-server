@@ -9,8 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.lognUser = exports.createUser = void 0;
+exports.emailVerification = exports.lognUser = exports.createUser = void 0;
 const user_service_1 = require("./user.service");
+const user_mail_1 = require("./user.mail");
+const utils_1 = require("../helper/utils");
 const createUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const data = req.body;
     try {
@@ -44,3 +46,15 @@ const lognUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.lognUser = lognUser;
+const emailVerification = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email } = req.body;
+    try {
+        const theOTP = (0, utils_1.gettingOTP)();
+        yield (0, user_mail_1.sendEmail)(email, 'Verify your email', `Your OTP is ${theOTP}`);
+        return res.send({ otp: theOTP });
+    }
+    catch (error) {
+        return error;
+    }
+});
+exports.emailVerification = emailVerification;

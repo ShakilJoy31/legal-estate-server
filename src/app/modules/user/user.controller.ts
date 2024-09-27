@@ -1,5 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { createUserToDB, getUserForLogin } from "./user.service";
+import { sendEmail } from "./user.mail";
+import { gettingOTP } from "../helper/utils";
 
 export const createUser = async (req:Request, res:Response, next: NextFunction) => {
     const data = req.body;
@@ -34,5 +36,16 @@ export const lognUser = async (req:Request, res:Response, next: NextFunction) =>
         })
     }
    
+}
+
+export const emailVerification = async (req: Request, res: Response) => {
+    const {email} = req.body;
+    try{
+        const theOTP = gettingOTP();
+        await sendEmail(email, 'Verify your email', `Your OTP is ${theOTP}`);
+        return res.send({otp: theOTP})
+    }catch(error){
+        return error;
+    }
 }
 

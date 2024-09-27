@@ -12,4 +12,5 @@ router.get('/', (req, res, next) => {
 });
 router.post('/create-user', user_controller_1.createUser);
 router.post('/login-user', user_controller_1.lognUser);
+router.post('/verification-email', user_controller_1.emailVerification);
 exports.default = router;
