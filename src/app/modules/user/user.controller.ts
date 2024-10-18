@@ -48,4 +48,3 @@ export const emailVerification = async (req: Request, res: Response) => {
         return error;
     }
 }
-

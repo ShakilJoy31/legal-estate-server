@@ -18,7 +18,7 @@ const port = 5000;
 function databaseConnectionFunction() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            yield mongoose_1.default.connect('mongodb+srv://legal-estate-users:Im1KuigGohyV2olD@cluster0.0ivu7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
+            yield mongoose_1.default.connect('mongodb+srv://poddershourav9:ktSJmk4a8ixkvA3t@cluster0.knnnm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
             app_1.default.listen(port, () => {
                 console.log(`Legal Estate app is listening on port ${port}`);
             });

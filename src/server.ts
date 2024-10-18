@@ -6,7 +6,7 @@ const port:number = 5000
 
 async function databaseConnectionFunction() {
     try{
-        await mongoose.connect('mongodb+srv://legal-estate-users:Im1KuigGohyV2olD@cluster0.0ivu7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
+        await mongoose.connect('mongodb+srv://poddershourav9:ktSJmk4a8ixkvA3t@cluster0.knnnm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
         app.listen(port, () => {
             console.log(`Legal Estate app is listening on port ${port}`)
           })
