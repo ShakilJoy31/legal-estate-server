@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.checkoutUserProperties = exports.createUserProperty = void 0;
+exports.updatePropertyByLawer = exports.checkoutUserProperties = exports.createUserProperty = void 0;
 const property_service_1 = require("./property.service");
 const createUserProperty = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const data = req.body;
@@ -44,3 +44,44 @@ const checkoutUserProperties = (req, res, next) => __awaiter(void 0, void 0, voi
     }
 });
 exports.checkoutUserProperties = checkoutUserProperties;
+const updatePropertyByLawer = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    try {
+        const userId = (_a = req === null || req === void 0 ? void 0 : req.body) === null || _a === void 0 ? void 0 : _a.id;
+        const updatedData = req.body;
+        if (!userId) {
+            return res.status(400).json({
+                status: 'failed',
+                message: 'User ID is required.'
+            });
+        }
+        if (!updatedData || Object.keys(updatedData).length === 0) {
+            return res.status(400).json({
+                status: 'failed',
+                message: 'Updated data is required.'
+            });
+        }
+        // Assuming you have a function that updates the user and property based on userId
+        const userProperty = yield (0, property_service_1.updatePropertyConditionFromDB)(userId, updatedData);
+        if (!userProperty) {
+            return res.status(404).json({
+                status: 'failed',
+                message: 'Property not found for the given user ID.'
+            });
+        }
+        // Respond with the updated property details
+        res.status(200).json({
+            status: 'success',
+            data: userProperty
+        });
+    }
+    catch (error) {
+        console.error('Error updating property:', error);
+        res.status(500).json({
+            status: 'failed',
+            message: 'Error updating property.',
+            data: null
+        });
+    }
+});
+exports.updatePropertyByLawer = updatePropertyByLawer;

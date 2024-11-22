@@ -51,9 +51,15 @@ const propertySchema = new Schema<IProperty>({
         required: true
     },
     propertyOwner: {
-        type: Schema.Types.ObjectId, 
+        type: Schema.Types.ObjectId,
         ref: 'Users',
         required: true
+    },
+    condition: {
+        type: String,
+        enum: ['pending', 'approved', 'rejected'],
+        required: true,
+        default: 'pending' // Optional: set a default value
     }
 });
 

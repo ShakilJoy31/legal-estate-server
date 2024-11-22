@@ -12,4 +12,5 @@ router.get('/', (req, res, next) => {
 });
 router.post('/sell-property', property_controller_1.createUserProperty);
 router.get('/checkout-property', property_controller_1.checkoutUserProperties);
+router.put('/update-property-status', property_controller_1.updatePropertyByLawer);
 exports.default = router;

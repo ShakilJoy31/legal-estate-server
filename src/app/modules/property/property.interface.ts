@@ -14,4 +14,5 @@ export interface IProperty {
     contactNumber: string;
     image: string[];
     propertyOwner: ObjectId;
+    condition: string
 }

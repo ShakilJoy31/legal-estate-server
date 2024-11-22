@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { createUserPropertyToDB, getUserPropertyFromDB } from "./property.service";
+import { createUserPropertyToDB, getUserPropertyFromDB, updatePropertyConditionFromDB } from "./property.service";
 
 export const createUserProperty = async (req:Request, res:Response, next: NextFunction) => {
     const data = req.body;
@@ -34,4 +34,51 @@ export const checkoutUserProperties = async (req: Request, res: Response, next: 
         });
     }
 };
+
+
+export const updatePropertyByLawer = async (req: Request, res: Response, next: NextFunction) => {
+   
+    try {
+        const userId = req?.body?.id;
+        const updatedData = req.body;
+        if (!userId) {
+            return res.status(400).json({
+                status: 'failed',
+                message: 'User ID is required.'
+            });
+        }
+
+        if (!updatedData || Object.keys(updatedData).length === 0) {
+            return res.status(400).json({
+                status: 'failed',
+                message: 'Updated data is required.'
+            });
+        }
+
+        // Assuming you have a function that updates the user and property based on userId
+        const userProperty = await updatePropertyConditionFromDB(userId, updatedData);
+
+        if (!userProperty) {
+            return res.status(404).json({
+                status: 'failed',
+                message: 'Property not found for the given user ID.'
+            });
+        }
+
+        // Respond with the updated property details
+        res.status(200).json({
+            status: 'success',
+            data: userProperty
+        });
+    } catch (error) {
+        console.error('Error updating property:', error);
+        res.status(500).json({
+            status: 'failed',
+            message: 'Error updating property.',
+            data: null
+        });
+    }
+};
+
+
 
