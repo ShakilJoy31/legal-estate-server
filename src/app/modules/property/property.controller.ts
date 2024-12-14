@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { createUserPropertyToDB, getUserPropertyFromDB, updatePropertyConditionFromDB } from "./property.service";
+import { createUserPropertyToDB, deletePropertyByAdmin, getUserPropertyFromDB, updatePropertyConditionFromDB } from "./property.service";
 
 export const createUserProperty = async (req:Request, res:Response, next: NextFunction) => {
     const data = req.body;
@@ -65,6 +65,28 @@ export const updatePropertyByLawer = async (req: Request, res: Response, next: N
             });
         }
 
+        // Respond with the updated property details
+        res.status(200).json({
+            status: 'success',
+            data: userProperty
+        });
+    } catch (error) {
+        console.error('Error updating property:', error);
+        res.status(500).json({
+            status: 'failed',
+            message: 'Error updating property.',
+            data: null
+        });
+    }
+};
+
+
+
+export const deleteProperty = async (req: Request, res: Response, next: NextFunction) => {
+   
+    try {
+        const {userId} = req?.body;
+        const userProperty = await deletePropertyByAdmin(userId);
         // Respond with the updated property details
         res.status(200).json({
             status: 'success',

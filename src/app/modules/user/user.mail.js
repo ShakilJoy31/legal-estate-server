@@ -19,8 +19,11 @@ const transporter = nodemailer_1.default.createTransport({
     port: 465,
     secure: true,
     auth: {
+        // user: "shouravpodder33@gmail.com",
+        // pass: "dmhtmtkpkqllzsxn",
+        // Production
         user: "shouravpodder33@gmail.com",
-        pass: "dmhtmtkpkqllzsxn",
+        pass: "czthluefrcslqthx",
     },
 });
 const sendEmail = (to, subject, msg) => __awaiter(void 0, void 0, void 0, function* () {

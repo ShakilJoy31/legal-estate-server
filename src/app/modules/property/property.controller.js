@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updatePropertyByLawer = exports.checkoutUserProperties = exports.createUserProperty = void 0;
+exports.deleteProperty = exports.updatePropertyByLawer = exports.checkoutUserProperties = exports.createUserProperty = void 0;
 const property_service_1 = require("./property.service");
 const createUserProperty = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const data = req.body;
@@ -85,3 +85,23 @@ const updatePropertyByLawer = (req, res, next) => __awaiter(void 0, void 0, void
     }
 });
 exports.updatePropertyByLawer = updatePropertyByLawer;
+const deleteProperty = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { userId } = req === null || req === void 0 ? void 0 : req.body;
+        const userProperty = yield (0, property_service_1.deletePropertyByAdmin)(userId);
+        // Respond with the updated property details
+        res.status(200).json({
+            status: 'success',
+            data: userProperty
+        });
+    }
+    catch (error) {
+        console.error('Error updating property:', error);
+        res.status(500).json({
+            status: 'failed',
+            message: 'Error updating property.',
+            data: null
+        });
+    }
+});
+exports.deleteProperty = deleteProperty;

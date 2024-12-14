@@ -54,3 +54,36 @@ export const updatePropertyConditionFromDB = async (propertyId: string, updatedD
     }
 };
 
+
+
+export const deletePropertyByAdmin = async (propertyId: string) => {
+    try {
+        // Find and delete the property using the propertyId
+        const property = await Property.findByIdAndDelete(propertyId)
+            .populate({
+                path: 'propertyOwner',
+                select: 'name email phone address photo',
+            })
+            .exec();
+
+        if (!property) {
+            console.error('Property not found for the given propertyId');
+            return {
+                status: 'failed',
+                message: 'Property not found',
+            };
+        }
+
+        return {
+            status: 'success',
+            message: 'Property deleted successfully',
+            data: property, // Return the deleted property's details if needed
+        };
+    } catch (error) {
+        console.error('Error deleting property:', error);
+        return {
+            status: 'failed',
+            message: 'An error occurred while deleting the property',
+        };
+    }
+};

@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { createUserToDB, getUserForLogin } from "./user.service";
+import { createUserToDB, deleteUserController, getUserForLogin, getUsers } from "./user.service";
 import { sendEmail } from "./user.mail";
 import { gettingOTP } from "../helper/utils";
 
@@ -48,3 +48,37 @@ export const emailVerification = async (req: Request, res: Response) => {
         return error;
     }
 }
+
+export const getAllUser = async (req:Request, res:Response, next: NextFunction) => {
+   
+    try{
+        const user = await getUsers()
+        res.status(200).json({
+            status: 'success',
+            data: user
+        })
+    }catch(error){
+        res.status(500).json({
+            status: 'failed',
+            data: null
+        })
+    }
+}
+
+
+export const deleteUser = async (req:Request, res:Response, next: NextFunction) => {
+   const {userId} = req.body; 
+    try{
+        const user = await deleteUserController(userId)
+        res.status(200).json({
+            status: 'success',
+            data: user
+        })
+    }catch(error){
+        res.status(500).json({
+            status: 'failed',
+            data: null
+        })
+    }
+}
+

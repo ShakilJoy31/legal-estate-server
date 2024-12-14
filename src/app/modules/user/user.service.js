@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUserForLogin = exports.createUserToDB = void 0;
+exports.deleteUserController = exports.getUsers = exports.getUserForLogin = exports.createUserToDB = void 0;
 const user_model_1 = __importDefault(require("./user.model"));
 const createUserToDB = (data) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -41,6 +41,32 @@ const getUserForLogin = (data) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.getUserForLogin = getUserForLogin;
+const getUsers = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const users = yield user_model_1.default.find();
+        if (!users || users.length === 0) {
+            return { error: "No users found" };
+        }
+        return users;
+    }
+    catch (error) {
+        if (error instanceof Error) {
+            return { error: error.message }; // Safely access the error message.
+        }
+        return { error: "An unexpected error occurred" }; // Fallback for unknown error types.
+    }
+});
+exports.getUsers = getUsers;
+const deleteUserController = (userId) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const deletedUser = yield user_model_1.default.findByIdAndDelete(userId);
+        return deletedUser;
+    }
+    catch (error) {
+        return error;
+    }
+});
+exports.deleteUserController = deleteUserController;
 // export const getUserForLogin = async (data: IUser) => {
 //     const {email, password} = data
 //     try{

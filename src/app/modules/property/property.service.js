@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updatePropertyConditionFromDB = exports.getUserPropertyFromDB = exports.createUserPropertyToDB = void 0;
+exports.deletePropertyByAdmin = exports.updatePropertyConditionFromDB = exports.getUserPropertyFromDB = exports.createUserPropertyToDB = void 0;
 const property_model_1 = __importDefault(require("./property.model"));
 const createUserPropertyToDB = (data) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -64,3 +64,34 @@ const updatePropertyConditionFromDB = (propertyId, updatedData) => __awaiter(voi
     }
 });
 exports.updatePropertyConditionFromDB = updatePropertyConditionFromDB;
+const deletePropertyByAdmin = (propertyId) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        // Find and delete the property using the propertyId
+        const property = yield property_model_1.default.findByIdAndDelete(propertyId)
+            .populate({
+            path: 'propertyOwner',
+            select: 'name email phone address photo',
+        })
+            .exec();
+        if (!property) {
+            console.error('Property not found for the given propertyId');
+            return {
+                status: 'failed',
+                message: 'Property not found',
+            };
+        }
+        return {
+            status: 'success',
+            message: 'Property deleted successfully',
+            data: property, // Return the deleted property's details if needed
+        };
+    }
+    catch (error) {
+        console.error('Error deleting property:', error);
+        return {
+            status: 'failed',
+            message: 'An error occurred while deleting the property',
+        };
+    }
+});
+exports.deletePropertyByAdmin = deletePropertyByAdmin;

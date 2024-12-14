@@ -33,6 +33,34 @@ export const getUserForLogin = async (data: IUser) => {
 };
 
 
+export const getUsers = async () => { 
+  try {
+    const users = await User.find();
+
+    if (!users || users.length === 0) {
+      return { error: "No users found" };
+    }
+    return users;
+  } catch (error) {
+    if (error instanceof Error) {
+      return { error: error.message }; // Safely access the error message.
+    }
+    return { error: "An unexpected error occurred" }; // Fallback for unknown error types.
+  }
+};
+
+
+export const deleteUserController = async (userId: string) => {
+  try {
+    const deletedUser = await User.findByIdAndDelete(userId);
+    return deletedUser;
+  } catch (error) {   
+    return error
+  }
+};
+
+
+
 
 // export const getUserForLogin = async (data: IUser) => {
 //     const {email, password} = data
