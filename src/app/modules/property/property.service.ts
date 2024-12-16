@@ -32,9 +32,12 @@ export const getUserPropertyFromDB = async () => {
 export const updatePropertyConditionFromDB = async (propertyId: string, updatedData: object) => {
     try {
         // Update the property condition using the propertyId
+<<<<<<< HEAD
 
         console.log(updatedData); 
         
+=======
+>>>>>>> db66137f3eae80b102be4bd09825aaeb40d2a77d
         const property = await Property.findOneAndUpdate(
             { _id: propertyId },  // Find the property by its ID
             { $set: updatedData },  // Update the property with the new data (e.g., condition)
