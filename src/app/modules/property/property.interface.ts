@@ -14,10 +14,6 @@ export interface IProperty {
     contactNumber: string;
     image: string[];
     propertyOwner: ObjectId;
-<<<<<<< HEAD
     condition: string;
     rejectionMessage: string
-=======
-    condition: string
->>>>>>> db66137f3eae80b102be4bd09825aaeb40d2a77d
 }

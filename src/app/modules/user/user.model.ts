@@ -19,6 +19,10 @@ const userSchema = new Schema<IUser>({
         type: String,
         required: true
     },
+    lawerCode: {
+        type: String,
+        required: false
+    },
     role: {
         type: String,
         required: true

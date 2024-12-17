@@ -16,9 +16,10 @@ export const getUserPropertyFromDB = async () => {
     try {
         const properties = await Property.find()
             .populate({
-                path: 'propertyOwner', 
+                path: 'propertyOwner',
                 select: 'name email phone address photo' 
             })
+            .lean()
             .exec();
         return properties;
     } catch (error) {
@@ -32,12 +33,7 @@ export const getUserPropertyFromDB = async () => {
 export const updatePropertyConditionFromDB = async (propertyId: string, updatedData: object) => {
     try {
         // Update the property condition using the propertyId
-<<<<<<< HEAD
-
-        console.log(updatedData); 
         
-=======
->>>>>>> db66137f3eae80b102be4bd09825aaeb40d2a77d
         const property = await Property.findOneAndUpdate(
             { _id: propertyId },  // Find the property by its ID
             { $set: updatedData },  // Update the property with the new data (e.g., condition)
@@ -53,7 +49,8 @@ export const updatePropertyConditionFromDB = async (propertyId: string, updatedD
             console.error('Property not found for the given propertyId');
             return null;
         }
-        return property;  // Return the updated property
+         console.log(property); 
+        return property; 
     } catch (error) {
         console.error('Error updating property:', error);
         return null;

@@ -31,6 +31,7 @@ const getUserPropertyFromDB = () => __awaiter(void 0, void 0, void 0, function* 
             path: 'propertyOwner',
             select: 'name email phone address photo'
         })
+            .lean()
             .exec();
         return properties;
     }
@@ -43,10 +44,6 @@ exports.getUserPropertyFromDB = getUserPropertyFromDB;
 const updatePropertyConditionFromDB = (propertyId, updatedData) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // Update the property condition using the propertyId
-<<<<<<< HEAD
-        console.log(updatedData);
-=======
->>>>>>> db66137f3eae80b102be4bd09825aaeb40d2a77d
         const property = yield property_model_1.default.findOneAndUpdate({ _id: propertyId }, // Find the property by its ID
         { $set: updatedData }, // Update the property with the new data (e.g., condition)
         { new: true } // Return the updated document
@@ -60,7 +57,8 @@ const updatePropertyConditionFromDB = (propertyId, updatedData) => __awaiter(voi
             console.error('Property not found for the given propertyId');
             return null;
         }
-        return property; // Return the updated property
+        console.log(property);
+        return property;
     }
     catch (error) {
         console.error('Error updating property:', error);

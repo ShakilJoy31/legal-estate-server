@@ -59,15 +59,11 @@ const propertySchema = new mongoose_1.Schema({
         type: String,
         enum: ['pending', 'approved', 'rejected'],
         required: true,
-<<<<<<< HEAD
         default: 'pending'
     },
     rejectionMessage: {
         type: String,
         required: false,
-=======
-        default: 'pending' // Optional: set a default value
->>>>>>> db66137f3eae80b102be4bd09825aaeb40d2a77d
     }
 });
 propertySchema.set('autoIndex', true);
