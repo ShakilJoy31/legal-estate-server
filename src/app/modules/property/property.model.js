@@ -64,7 +64,15 @@ const propertySchema = new mongoose_1.Schema({
     rejectionMessage: {
         type: String,
         required: false,
-    }
+    },
+    approvedByLawerName: {
+        type: String,
+        required: false,
+    },
+    approvedByLawerEmail: {
+        type: String,
+        required: false,
+    },
 });
 propertySchema.set('autoIndex', true);
 const Property = (0, mongoose_1.model)("Property", propertySchema);

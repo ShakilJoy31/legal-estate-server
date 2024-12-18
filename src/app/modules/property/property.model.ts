@@ -64,7 +64,15 @@ const propertySchema = new Schema<IProperty>({
     rejectionMessage: {
         type: String,
         required: false,
-    }
+    },
+    approvedByLawerName: {
+        type: String,
+        required: false,
+    },
+    approvedByLawerEmail: {
+        type: String,
+        required: false,
+    },
 });
 
 propertySchema.set('autoIndex', true);

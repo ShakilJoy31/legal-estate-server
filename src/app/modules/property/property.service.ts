@@ -1,15 +1,42 @@
-import { IProperty } from "./property.interface";
+import Order from "./orderProperty.model";
+import { IOrder, IProperty } from "./property.interface";
 import Property from "./property.model";
 import bcrypt from 'bcrypt';
 
 export const createUserPropertyToDB = async (data: IProperty) => {
-    try{
-        const user = await Property.create(data); 
+    try {
+        const user = await Property.create(data);
         return user;
-    }catch(error){
-        return error; 
+    } catch (error) {
+        return error;
     }
 }
+
+export const orderUserPropertyToDB = async (data: IOrder) => {
+    try {
+        console.log(data); 
+        const user = await Order.create(data);
+        console.log(user); 
+        return user;
+    } catch (error) {
+        return error;
+    }
+}
+
+
+export const getOrderProperty = async () => {
+    try {
+        const users = await Order.find();
+        console.log(users); 
+        return users;
+    } catch (error) {
+        if (error instanceof Error) {
+            return { error: error.message };
+        }
+        return { error: "An unexpected error occurred" };
+    }
+};
+
 
 
 export const getUserPropertyFromDB = async () => {
@@ -17,7 +44,7 @@ export const getUserPropertyFromDB = async () => {
         const properties = await Property.find()
             .populate({
                 path: 'propertyOwner',
-                select: 'name email phone address photo' 
+                select: 'name email phone address photo'
             })
             .lean()
             .exec();
@@ -33,14 +60,14 @@ export const getUserPropertyFromDB = async () => {
 export const updatePropertyConditionFromDB = async (propertyId: string, updatedData: object) => {
     try {
         // Update the property condition using the propertyId
-        
+
         const property = await Property.findOneAndUpdate(
             { _id: propertyId },  // Find the property by its ID
             { $set: updatedData },  // Update the property with the new data (e.g., condition)
             { new: true }  // Return the updated document
         )
             .populate({
-                path: 'propertyOwner', 
+                path: 'propertyOwner',
                 select: 'name email phone address photo'
             })
             .exec();
@@ -49,8 +76,8 @@ export const updatePropertyConditionFromDB = async (propertyId: string, updatedD
             console.error('Property not found for the given propertyId');
             return null;
         }
-         console.log(property); 
-        return property; 
+        console.log(property);
+        return property;
     } catch (error) {
         console.error('Error updating property:', error);
         return null;

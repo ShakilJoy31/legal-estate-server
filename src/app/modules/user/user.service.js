@@ -12,7 +12,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUserController = exports.getUsers = exports.getUserForLogin = exports.createUserToDB = void 0;
+exports.deleteUserController = exports.getUsers = exports.getUserForLogin = exports.getContact = exports.createMessageToDB = exports.createUserToDB = void 0;
+const message_model_1 = __importDefault(require("./message.model"));
 const user_model_1 = __importDefault(require("./user.model"));
 const createUserToDB = (data) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -24,6 +25,29 @@ const createUserToDB = (data) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.createUserToDB = createUserToDB;
+const createMessageToDB = (data) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const user = yield message_model_1.default.create(data);
+        return user;
+    }
+    catch (error) {
+        return error;
+    }
+});
+exports.createMessageToDB = createMessageToDB;
+const getContact = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const users = yield message_model_1.default.find();
+        return users;
+    }
+    catch (error) {
+        if (error instanceof Error) {
+            return { error: error.message };
+        }
+        return { error: "An unexpected error occurred" };
+    }
+});
+exports.getContact = getContact;
 const getUserForLogin = (data) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = data;
     try {

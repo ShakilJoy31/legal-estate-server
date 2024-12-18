@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteProperty = exports.updatePropertyByLawer = exports.checkoutUserProperties = exports.createUserProperty = void 0;
+exports.deleteProperty = exports.updatePropertyByLawer = exports.checkoutUserProperties = exports.getPropertyOrder = exports.orderUserProperty = exports.createUserProperty = void 0;
 const property_service_1 = require("./property.service");
 const createUserProperty = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const data = req.body;
@@ -27,6 +27,37 @@ const createUserProperty = (req, res, next) => __awaiter(void 0, void 0, void 0,
     }
 });
 exports.createUserProperty = createUserProperty;
+const orderUserProperty = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const data = req.body;
+    try {
+        const user = yield (0, property_service_1.orderUserPropertyToDB)(data);
+        res.status(200).json({
+            data: user
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            status: 'failed',
+            data: null
+        });
+    }
+});
+exports.orderUserProperty = orderUserProperty;
+const getPropertyOrder = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const user = yield (0, property_service_1.getOrderProperty)();
+        res.status(200).json({
+            data: user
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            status: 'failed',
+            data: null
+        });
+    }
+});
+exports.getPropertyOrder = getPropertyOrder;
 // Getting all orders
 const checkoutUserProperties = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {

@@ -14,4 +14,7 @@ router.post('/sell-property', property_controller_1.createUserProperty);
 router.get('/checkout-property', property_controller_1.checkoutUserProperties);
 router.put('/update-property-status', property_controller_1.updatePropertyByLawer);
 router.delete('/delete-property', property_controller_1.deleteProperty);
+// Order
+router.post('/order-property', property_controller_1.orderUserProperty);
+router.get('/order-property', property_controller_1.getPropertyOrder);
 exports.default = router;

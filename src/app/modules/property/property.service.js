@@ -12,7 +12,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deletePropertyByAdmin = exports.updatePropertyConditionFromDB = exports.getUserPropertyFromDB = exports.createUserPropertyToDB = void 0;
+exports.deletePropertyByAdmin = exports.updatePropertyConditionFromDB = exports.getUserPropertyFromDB = exports.getOrderProperty = exports.orderUserPropertyToDB = exports.createUserPropertyToDB = void 0;
+const orderProperty_model_1 = __importDefault(require("./orderProperty.model"));
 const property_model_1 = __importDefault(require("./property.model"));
 const createUserPropertyToDB = (data) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -24,6 +25,32 @@ const createUserPropertyToDB = (data) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 exports.createUserPropertyToDB = createUserPropertyToDB;
+const orderUserPropertyToDB = (data) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        console.log(data);
+        const user = yield orderProperty_model_1.default.create(data);
+        console.log(user);
+        return user;
+    }
+    catch (error) {
+        return error;
+    }
+});
+exports.orderUserPropertyToDB = orderUserPropertyToDB;
+const getOrderProperty = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const users = yield orderProperty_model_1.default.find();
+        console.log(users);
+        return users;
+    }
+    catch (error) {
+        if (error instanceof Error) {
+            return { error: error.message };
+        }
+        return { error: "An unexpected error occurred" };
+    }
+});
+exports.getOrderProperty = getOrderProperty;
 const getUserPropertyFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const properties = yield property_model_1.default.find()

@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUser = exports.getAllUser = exports.emailVerification = exports.lognUser = exports.createUser = void 0;
+exports.getAllMessage = exports.createMessage = exports.deleteUser = exports.getAllUser = exports.emailVerification = exports.lognUser = exports.createUser = void 0;
 const user_service_1 = require("./user.service");
 const user_mail_1 = require("./user.mail");
 const utils_1 = require("../helper/utils");
@@ -91,3 +91,35 @@ const deleteUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
     }
 });
 exports.deleteUser = deleteUser;
+const createMessage = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const data = req.body;
+    try {
+        const user = yield (0, user_service_1.createMessageToDB)(data);
+        res.status(200).json({
+            data: user
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            status: 'failed',
+            data: null
+        });
+    }
+});
+exports.createMessage = createMessage;
+const getAllMessage = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const user = yield (0, user_service_1.getContact)();
+        res.status(200).json({
+            status: 'success',
+            data: user
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            status: 'failed',
+            data: null
+        });
+    }
+});
+exports.getAllMessage = getAllMessage;

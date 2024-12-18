@@ -1,10 +1,41 @@
 import { NextFunction, Request, Response } from "express";
-import { createUserPropertyToDB, deletePropertyByAdmin, getUserPropertyFromDB, updatePropertyConditionFromDB } from "./property.service";
+import { createUserPropertyToDB, deletePropertyByAdmin, getOrderProperty, getUserPropertyFromDB, orderUserPropertyToDB, updatePropertyConditionFromDB } from "./property.service";
 
 export const createUserProperty = async (req:Request, res:Response, next: NextFunction) => {
     const data = req.body;
     try{
         const user = await createUserPropertyToDB(data)
+        res.status(200).json({
+            data: user
+        })
+    }catch(error){
+        res.status(500).json({
+            status: 'failed',
+            data: null
+        })
+    }
+   
+}
+
+export const orderUserProperty = async (req:Request, res:Response, next: NextFunction) => {
+    const data = req.body;
+    try{
+        const user = await orderUserPropertyToDB(data)
+        res.status(200).json({
+            data: user
+        })
+    }catch(error){
+        res.status(500).json({
+            status: 'failed',
+            data: null
+        })
+    }
+   
+}
+
+export const getPropertyOrder = async (req:Request, res:Response, next: NextFunction) => {
+    try{
+        const user = await getOrderProperty()
         res.status(200).json({
             data: user
         })

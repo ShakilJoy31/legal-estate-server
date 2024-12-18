@@ -8,3 +8,10 @@ export interface IUser {
     password: string,
     photo: string
 }
+
+
+export interface IMessage {
+    name: string,
+    email: string,
+    message: string,
+}
